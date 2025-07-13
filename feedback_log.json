@@ -1,0 +1,20 @@
+[
+  {
+    "query": "How to improve CTR on Google Ads?",
+    "response": "Use compelling headlines and strong CTAs.",
+    "is_hallucinated": false,
+    "relevance_score": 4,
+    "comments": "Seems relevant but slightly generic",
+    "reference_summary": "Headlines and CTAs affect CTR",
+    "timestamp": "2025-07-13T10:30:00"
+  },
+  {
+    "timestamp": "2025-07-13 08:17:46.930987",
+    "query": "What\u2019s the best ad strategy for a summer sale?",
+    "response": "Based on the provided blog content, here's the best ad strategy for your summer sale:\n\n1.  **Platform:** Focus on Facebook ads (as per Blog 1).\n2.  **Ad Copy:** Use attention-grabbing language like \"hot deals\" and \"limited time\" to increase clicks (as per Blog 2).\n3.  **Visuals:** Use clear, targeted visuals.\n4.  **Format:** Utilize the carousel format to boost engagement (as per Blog 1).\n5.  **Call to Action:** Ensure you have a clear CTA, e.g., \"Shop Now!\".",
+    "is_hallucinated": false,
+    "relevance_score": null,
+    "comments": null,
+    "reference_summary": null
+  }
+]
