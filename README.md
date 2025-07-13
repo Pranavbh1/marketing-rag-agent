@@ -1,5 +1,7 @@
 # 🚀 Marketing RAG Agent (Track A – Research + Prototype)
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-MarketingRAG-blue?logo=github)](https://github.com/Pranavbh1/marketing-rag-agent)
+
 An intelligent marketing agent built with **FastAPI**, **LangGraph**, and **Gemini Flash**, capable of:
 
 * 🔎 Retrieving answers from a blog corpus (RAG via Chroma)
@@ -18,6 +20,7 @@ An intelligent marketing agent built with **FastAPI**, **LangGraph**, and **Gemi
 * ✅ Ad rewriting with tone & platform optimization
 * ✅ Feedback logging + hallucination & relevance fields
 * ✅ ROUGE evaluation script for summaries
+* ✅ Lightweight **Knowledge Graph enrichment** for marketing terms
 
 ---
 
@@ -26,7 +29,7 @@ An intelligent marketing agent built with **FastAPI**, **LangGraph**, and **Gemi
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/yourname/marketing-rag-agent.git
+git clone https://github.com/Pranavbh1/marketing-rag-agent.git
 cd marketing-rag-agent
 ```
 
@@ -49,8 +52,10 @@ GOOGLE_API_KEY=your-google-api-key
 ### 4. Run the FastAPI App
 
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
+
+Then open in browser: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
@@ -126,7 +131,7 @@ Rewrites ad copy for a specific platform and tone.
 
 ### 📈 `GET /metrics`
 
-Returns statistics from feedback logs (hallucination rate, etc).
+Returns statistics from feedback logs.
 
 ```json
 {
@@ -144,11 +149,12 @@ Returns statistics from feedback logs (hallucination rate, etc).
 
 ## 🧠 Behind the Scenes
 
-* **LangGraph** manages multi-step reasoning: Retrieve → Generate.
-* **Chroma** stores vectorized chunks of marketing blog articles.
-* **LangChain** used for embeddings, loaders, memory.
-* **Gemini Flash** LLM responds to queries using retrieved docs.
-* Feedback is saved to `feedback_log.json`, used for metrics.
+* **LangGraph** manages multi-step reasoning: Retrieve → Generate
+* **Chroma** stores vectorized blog content
+* **LangChain** powers embeddings, memory, and data loading
+* **Gemini Flash** LLM generates contextual answers
+* **Knowledge Graph** enriches the query context
+* Feedback saved to `feedback_log.json` is used for ROUGE and metrics
 
 ---
 
@@ -156,18 +162,24 @@ Returns statistics from feedback logs (hallucination rate, etc).
 
 ```
 app/
-├── agent.py              # LangGraph-based RAG pipeline
+├── __init__.py
+├── main.py                 # FastAPI app with endpoints
+├── agent.py                # LangGraph-based RAG pipeline
 ├── routes/
-│   └── feedback.py       # Feedback rating API (optional)
+│   └── feedback.py         # Optional: feedback API endpoint
 ├── utils/
-│   ├── utils.py          # Chroma vector store logic
-│   ├── save_feedback.py  # Logging feedback to JSON
-│   ├── rouge_eval.py     # ROUGE scoring utility
-│   ├──  metrics.py        # Aggregates metrics from feedback
-│   └── kg.py             # Knowledge graph enrichment function
-main.py                   # FastAPI app
-requirements.txt          # All dependencies pinned
-.env                      # API key
+│   ├── __init__.py
+│   ├── utils.py            # Chroma vector store & embedding logic
+│   ├── save_feedback.py    # Feedback logger
+│   ├── rouge_eval.py       # ROUGE scoring
+│   ├── metrics.py          # Feedback stats
+│   └── kg.py               # Lightweight marketing knowledge graph enrichment
+chroma_db/                  # Chroma vector DB storage
+chroma_langchain_db/        # Optional LangChain version DB
+sample_data/                # Example CSV for testing
+feedback_log.json           # Feedback records
+requirements.txt            # Dependencies
+.env                        # Google API key
 ```
 
 ---
@@ -186,32 +198,32 @@ curl -X POST http://localhost:8000/run-agent \
 
 ```bash
 curl -X POST http://localhost:8000/analyze-csv \
-  -F 'file=@sample_ads.csv'
+  -F 'file=@sample_data/ad_data.csv'
+```
+
+### Rewrite Ad
+
+```bash
+curl -X POST http://localhost:8000/rewrite-ad \
+  -H "Content-Type: application/json" \
+  -d '{"ad_text": "Huge discounts today!", "tone": "professional", "platform": "LinkedIn"}'
 ```
 
 ---
 
 ## 📊 Evaluation Strategy
 
-* **ROUGE-1 / ROUGE-L** for comparing generated text to reference summaries.
-* **Manual review** for hallucinations, relevance, tone.
-* **Feedback logs** capture `is_hallucinated`, `relevance_score`, and `comments`.
+* **ROUGE-1 / ROUGE-L**: for comparing responses to ground truth
+* **Manual review**: hallucinations, tone, relevance
+* **Feedback loop**: Logs `is_hallucinated`, `relevance_score`, `comments`
 
 ---
 
-## 📈 Pattern Recognition & Feedback Loop
+## 🧩 Agentic Pattern + Knowledge Graph
 
-* Every interaction logs feedback in `feedback_log.json`
-* Can be enhanced with LangGraph memory nodes or LangSmith traces
-* Scope for fine-tuning prompts based on low relevance / hallucinations
-
----
-
-## ✅ Agentic RAG + Knowledge Graph
-
-* ✅ Implements **Graph-based RAG** with LangGraph
-* ✅ Multi-step: Retrieval → Prompt Contextualization → Gemini Response
-* ✅ Uses simple **Knowledge Graph enrichment** for marketing terms via `enrich_with_knowledge_graph()`
+* ✅ LangGraph-based multi-step flow
+* ✅ Prompt enrichment via `enrich_with_knowledge_graph()` in `kg.py`
+* ✅ Easily extensible with LangSmith, LangChain memory, or frontend UI
 
 ---
 
