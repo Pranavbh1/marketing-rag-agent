@@ -243,4 +243,8 @@ curl -X POST http://localhost:8000/rewrite-ad \
 * [ ] LangSmith instrumentation
 ---
 
+## Final Flow
+![Metrics](screenshot/flow.png)
+
+
 **Built with ❤️ for Track A (Agent + Research)**
