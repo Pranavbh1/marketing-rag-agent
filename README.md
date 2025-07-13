@@ -81,6 +81,7 @@ Runs the marketing RAG agent on a query.
   "history": ["User: Best ad copy...", "AI: Here’s..."]
 }
 ```
+![Run Agent](screenshot/run_agent.png)
 
 ---
 
@@ -102,6 +103,7 @@ Uploads ad performance CSV and returns analysis.
   "data_preview": "Top 5 ads with CTR and CPC..."
 }
 ```
+![Analyze CSV](screenshot/analyze_csv.png)
 
 ---
 
@@ -126,6 +128,7 @@ Rewrites ad copy for a specific platform and tone.
   "rewritten_ad": "Grab it before it’s gone! 🌟 #InstaDeal"
 }
 ```
+![Rewrite Ad](screenshot/rewrite_ad.png)
 
 ---
 
@@ -144,6 +147,8 @@ Returns statistics from feedback logs.
   }
 }
 ```
+![Metrics](screenshot/metrics.png)
+
 
 ---
 
